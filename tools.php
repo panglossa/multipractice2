@@ -159,5 +159,57 @@ function correctimagepath($text, $courseid){
   		}
 	}	
 ////////////////////////////////////////////////////
+function my_simple_crypt( $string, $action = 'e' ) {
+	//source: https://nazmulahsan.me/simple-two-way-function-encrypt-decrypt-string/
+	// you may change these values to your own
+	$secret_key = 'my_simple_secret_key';
+	$secret_iv = 'my_simple_secret_iv';
+	$output = false;
+	$encrypt_method = "AES-256-CBC";
+	$key = hash( 'sha256', $secret_key );
+	$iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
+	if( $action == 'e' ) {
+		$output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
+		} else if( $action == 'd' ){
+		$output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
+		}
+	return $output;
+	}
+////////////////////////////////////////////////////
+function audiobutton($source, $id = '', $autoplay = true) {
+	return "<div id=\"playbtn\"><button id=\"play_btn{$id}\" onclick=\"playPause{$id}();return false;\">▶️</button><audio id=\"listenlagu{$id}\"><source src=\"data:audio/mp3;base64," . base64_encode( $source )."\"></audio></div><script>initAudioPlayer{$id}();
+function initAudioPlayer{$id}(){
+var audio = new Audio();
+var aContainer = document.getElementById('listenlagu{$id}');
+audio.src = aContainer.querySelectorAll('source')[0].getAttribute('src');
+audio.load();
+audio.loop = false;
+" . ($autoplay?'audio.play();':'') . "
+
+var playbtn = document.getElementById(\"play_btn{$id}\");
+
+  playbtn.addEventListener(\"click\", playPause{$id}(audio, playbtn));
+}
+
+function playPause{$id}(audio, playbtn){
+    return function () {
+       if(audio.paused){
+         audio.play();
+       } else {
+         audio.pause();
+       } 
+    }
+}</script>";
+	}
+////////////////////////////////////////////////////
+function itemimage($source) {
+	return "<img style=\"max-width:500px;\" src='data:image/png;base64," . base64_encode($source) . "' />";
+	}
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
+////////////////////////////////////////////////////
 ////////////////////////////////////////////////////
 ////////////////////////////////////////////////////

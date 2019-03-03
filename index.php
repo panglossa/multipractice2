@@ -1,4 +1,5 @@
 <?php
+ob_start("ob_gzhandler");
 require_once('options.php');
 require_once(GJ_PATH_LOCAL . '/gojohnny.php');
 require_once('tools.php');
@@ -14,5 +15,6 @@ $page->add(o('timer', TDiv(
 <script>restorechron();</script>
 ')));
 $page->render();
+ob_flush();
 ?>
 

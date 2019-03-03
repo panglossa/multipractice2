@@ -482,6 +482,7 @@ td {
 	box-shadow: 6px 6px 10px gray;
 	padding:1cm;
 	margin:1em;
+	margin-top:0;
 	border-radius:5px;
 	unicode-bidi: plaintext;
 	}
@@ -558,6 +559,11 @@ td {
 	display:none;
 	}
 
+#selectedcourses div {
+	white-space: nowrap;
+	display: inline;
+	}
+
 #selectedcourses input[type='checkbox'] {
 	display: table-cell;
 	}
@@ -594,10 +600,194 @@ td {
 	width:90%;
 	}
 
+#yesno {
+	width:100%;
+	border:none;
+	margin-bottom:1cm;
+	}
+
+#yesno tr td:first-child, 
+#yesno tr td:last-child {
+	width:50%;
+	text-align: center;
+	border:none;
+	}
+
+#yesno a {
+	display:block;
+	border-radius:5px;
+	border-color: white;
+	border-style: outset;
+	padding:.5ex;
+	padding-left:1em;
+	padding-right:1em;
+	color:navy;
+	text-shadow: 3px 3px 5px black;
+	background-color:silver;	
+	margin-left:1em;
+	margin-right:1em;
+	}
+
+#newuser {
+	margin-bottom: 1cm;
+	width:75%;
+	}
+
+#newuser table tr td:first-child{
+	width:25%;
+	}
+
+#newuser input[type='text'],
+#newuser input[type='password'] {
+	width:90%;
+	}
+
+#userinfo  tr td:first-child {
+	text-align: right;
+	padding-right:5ex;
+	font-style: italic;
+	}
+
+#userinfo  tr td:nth-child(2) {
+	font-weight: bold;
+	}
+
+#btn_addlevel ,
+#btn_createcourse,
+#btn_edituser,
+#btn_addlessonitem,
+#btn_addlessonitem2 {
+	display:block;
+	border-radius:5px;
+	border-color: white;
+	border-style: outset;
+	padding:.5ex;
+	padding-left:1em;
+	padding-right:1em;
+	color:navy;
+	text-shadow: 3px 3px 5px black;
+	background-color:silver;	
+	margin-left:1em;
+	margin-right:1em;
+	float:right;
+	}
+
+#tbl_courseedittoolbar,
+#tbl_courseedittoolbar td {
+	border:none;
+	text-align: center;
+	}
 
 
+#btn_edititemcancel,
+#btn_edititemcancel2 {
+	display:block;
+	border-radius:5px;
+	border-color: white;
+	border-style: outset;
+	padding:.5ex;
+	padding-left:1em;
+	padding-right:1em;
+	color:navy;
+	text-shadow: 3px 3px 5px black;
+	background-color:silver;	
+	margin-left:1em;
+	margin-right:1em;
+	width:auto;
+	text-align: center;
+	float:right;
+	}
+#tbl_courseedittoolbar a {
+	display:block;
+	border-radius:5px;
+	border-color: white;
+	border-style: outset;
+	padding:.5ex;
+	padding-left:1em;
+	padding-right:1em;
+	color:navy;
+	text-shadow: 3px 3px 5px black;
+	background-color:silver;	
+	margin-left:1em;
+	margin-right:1em;
+	}
 
+#editcoursename,
+#editcourseinfo {
+	width:90%;
+	}
 
+#tbl_courseinfo td, #tbl_courseinfo th {
+	text-align:center;
+	border:none;
+	}
 
+#tbl_edititem tr td:first-child {
+	width:10%;
+	text-align: right;
+	font-style: italic;
+	vertical-align: top;
+	padding:1ex;
+	}
 
+#tbl_edititem tr td:nth-child(2) {
+	width:65%;
+	}
 
+#tbl_edititem tr td:nth-child(3) {
+	width:25%;
+	text-align: center;
+	vertical-align: top;
+	padding:.5ex;
+	font-size:85%;
+	}
+
+#tbl_edititem #edititem_name,
+#tbl_edititem #edititem_content,
+#tbl_edititem #edititem_info,
+#tbl_edititem #edititem_extra1,
+#tbl_edititem #edititem_extra2 {
+	width:95%;
+	margin: 0;
+    padding: 2px; /* it's best to have a little padding */
+    border: 1px solid #ccc; /* gets around varying border styles */
+	}
+
+#tbl_edititem #edititem_content,
+#tbl_edititem #edititem_info,
+#tbl_edititem #edititem_extra1,
+#tbl_edititem #edititem_extra2 {
+	min-height: 100px;
+	}
+
+#lesson_main h6 {
+	background-color: transparent;
+	text-shadow: 2px 2px 10px black;
+	box-shadow: none;
+	padding:0;
+	text-align:center;
+	margin:0;
+	border-radius:0;
+	font-size:100%;
+	font-weight: bolder;
+	font-style: italic;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color:silver;
+	}
+
+#backtolevel{
+	display:block;
+	border-radius:5px;
+	border-color: white;
+	border-style: outset;
+	padding:.5ex;
+	padding-left:1em;
+	padding-right:1em;
+	margin:1ex;
+	margin-top:1.5cm;
+	color:navy;
+	text-shadow: 3px 3px 5px black;
+	background-color:#FFFFCC;
+	color:navy;
+	}
