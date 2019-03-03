@@ -517,9 +517,9 @@ foreach ($result as $row) {
 			}
 		}
 	///////////////////////////////////////////////////////
-	function getrow($tablename = '', $what = '*', $conditions = array(), $order = '', $dir = ''){
+	function getrow($tablename = '', $what = '*', $conditions = array(), $limit = 1, $order = '', $dir = ''){
 		$res = array();
-		$data = $this->select($tablename, $what, $conditions, 1, $order, $dir);
+		$data = $this->select($tablename, $what, $conditions, $limit, $order, $dir);
 		foreach($data as $row){
 			$res = $row;
 			}

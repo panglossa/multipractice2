@@ -166,6 +166,10 @@ class THtml extends TElement {
 			}
 		}
 	////////////////////////////////////////////////////////////////////////
+	function hasparm($id) {
+		return (isset($this->parameters[$id]));
+		}
+	////////////////////////////////////////////////////////////////////////
 	function sessionparm($id, $default = null){
 		$res = $default;
 		if (isset($_SESSION[$id])){
