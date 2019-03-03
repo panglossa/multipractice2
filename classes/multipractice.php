@@ -19,6 +19,7 @@ class TMultiPractice extends THtml {
 		$this->checkuser();
 		$this->loadlanguages();
 		$this->courses = array();
+		$this->extramenuitems = array();
 		
 		if (!isset($this->parameters['keepsession'])){
 			$this->icon = $this->config->icon;
@@ -33,9 +34,12 @@ class TMultiPractice extends THtml {
 				}else{
 				$login = '';	
 				}
-			$this->add($this->mainmenu() . $login, 'mainmenu');
+			if ($this->isadmin()) {
+				$this->addtomenu(TA('index.php?c=courses/edit', 'Course Editor'));
+				}
 			$this->checkmessage();
 			$this->loadmodule();
+			$this->add($this->mainmenu() . $login, 'mainmenu');
 			$this->add(o('footer', TFooter($this->mainmenu())));
 			}
 			
@@ -94,10 +98,16 @@ class TMultiPractice extends THtml {
 			$menu->add(HR);
 			}
 		$menu->add(TA('index.php?c=courses/view', 'All Courses'));
-		$menu->add(TA('index.php?c=tests', 'Tests'));
-		$menu->add(HR);
+		//$menu->add(TA('index.php?c=tests', 'Tests'));
 		if ($this->userid>-1) {
-			$menu->add(TA('index.php?c=settings', 'Settings'));
+			$menu->add(HR);
+			$menu->add(TA('index.php?c=user', 'Settings'));
+			}
+		if (count($this->extramenuitems)>0) {
+			$menu->add(HR);
+			foreach($this->extramenuitems as $i){
+				$menu->add($i);
+				}
 			}
 		return $menu;
 		}
@@ -111,8 +121,8 @@ class TMultiPractice extends THtml {
 		foreach($data as $row){
 			$this->categories[$row['id']] = $row;
 			}
-		$order = $this->parm('order', 'started');
-		$usercourses = $this->db->select('user_courses', '*', "user = {$this->userid}", 0, $order);
+		$order = $this->parm('order', 'name');
+		$usercourses = $this->db->select('user_courses', '*', "user = {$this->userid}", 0, 'started');
 		if ($order=='started'){
 			$order = 'created';
 			}
@@ -278,7 +288,7 @@ class TMultiPractice extends THtml {
 				$this->username = $userdata['name'];
 				$this->userid = $userdata['id'];
 				$this->userxp = floor($userdata['xp']);
-				$this->addxp(0.09);
+				//$this->addxp(0.09);
 				$_SESSION['username']=$row['name'];
 				$_SESSION['userid']=$row['id'];
 				$_SESSION['password']=$row['password'];
@@ -318,7 +328,7 @@ class TMultiPractice extends THtml {
 				$this->username = $userdata['name'];
 				$this->userid = $userdata['id'];
 				$this->userxp = floor($userdata['xp']);
-				$this->addxp(0.05);
+				//$this->addxp(0.05);
 				$_SESSION['username']=$row['name'];
 				$_SESSION['userid']=$row['id'];
 				$_SESSION['password']=$row['password'];
@@ -342,7 +352,6 @@ class TMultiPractice extends THtml {
 					)
 				);
 			}
-		
 		}
 	////////////////////////////////////////////////////
 	function isadmin(){
@@ -368,6 +377,14 @@ class TMultiPractice extends THtml {
 			}
 		}
 	////////////////////////////////////////////////////
+	function go($parm, $compl = ''){
+		if (trim($compl)!='') {
+			$compl = "&{$compl}";
+			}
+		//echo "index.php?c={$parm}{$compl}";
+		$this->redirect("index.php?c={$parm}{$compl}");
+		}
+	////////////////////////////////////////////////////
 	function button($url, $label, $hint = ''){
 		if ($hint==''){
 			$hint = $label;
@@ -379,7 +396,7 @@ class TMultiPractice extends THtml {
 	////////////////////////////////////////////////////
 	function loadlanguages(){
 		$this->languages = array();
-		$this->languages[-1] = array('id' => '-1', 'name' => '', 'englishname' => '', 'code' => '');
+		$this->languages[-1] = array('id' => '-1', 'name' => '-', 'englishname' => '', 'code' => '');
 		$langs = $this->db->select('languages', '*', "1", 0, 'name_sort');
 		foreach($langs as $language){
 			if (($language['englishname']!='')&&($language['name']!=$language['englishname'])) {
@@ -559,7 +576,7 @@ class TMultiPractice extends THtml {
 		$res = false;
 		if (trim($text)!=''){
 			$text = $this->noaccents($this->cleartext($text));
-			foreach($this->expand_options($this->noaccents($model)) as $line){
+			foreach($this->expand($this->noaccents($model)) as $line){
 				if ($this->cleartext($line)==$text){
 					$res = true;
 					}
@@ -568,58 +585,65 @@ class TMultiPractice extends THtml {
 		return $res;
 		}
 	////////////////////////////////////////////////////
-	function expand($model){
-		return 'bla bla bla bla bla';
+	function expand($s){
+		$res = array();
+		foreach(explode("\n", $s) as $line ) {
+			foreach ($this->expand_options($line) as $option) {
+				if (trim($option)!='') {
+					$res[] = $option;
+					}
+				}
+			}
+		return $res;
 		}
 	////////////////////////////////////////////////////
 	function expand_options($s){
 		$res = array();
 		$res[] = '';
 		$tmp = array();
-		$orlines = explode("\n", str_replace('_', ' ', $s));
-		foreach ($orlines as $line){
-			$line = trim($line);
-			if ($line!=''){
-				if ((strpos($line, '[')!==false)&&(strpos($line, '|')!==false)&&(strpos($line, ']')!==false)){
+		$line = $s;
+		if ($line!=''){
+			if ((strpos($line, '[')!==false)&&(strpos($line, '|')!==false)&&(strpos($line, ']')!==false)){
+				$pos1 = strpos($line, '[');
+				$pos2 = strpos($line, '|');
+				$pos3 = strpos($line, ']');
+				while (($pos1!==false)&&($pos2!==false)&&($pos3!==false)) {
+					$part1 = substr($line, 0, $pos1);
+					$options = explode('|', substr($line, $pos1 + 1, $pos3-$pos1-1));
+					$line = substr($line, $pos3 + 1);
+	
 					$pos1 = strpos($line, '[');
 					$pos2 = strpos($line, '|');
 					$pos3 = strpos($line, ']');
-					while (($pos1!==false)&&($pos2!==false)&&($pos3!==false)) {
-						$part1 = substr($line, 0, $pos1);
-						$options = explode('|', substr($line, $pos1 + 1, $pos3-$pos1-1));
-						$line = substr($line, $pos3 + 1);
-
-						$pos1 = strpos($line, '[');
-						$pos2 = strpos($line, '|');
-						$pos3 = strpos($line, ']');
-						$tmp = array();
-						if (count($res)==0){
-							$res[] = $part1;
-							}else{
-							foreach($res as $item){
-								foreach($options as $option){
-									$tmp[] = "{$item}{$part1}{$option}";
-									}
-								}
-							}
-						$res = $tmp;
-						}
 					$tmp = array();
 					if (count($res)==0){
-						$tmp[] = $line;
+						$res[] = $part1;
 						}else{
 						foreach($res as $item){
-							$tmp[] = "{$item}{$line}";
+							foreach($options as $option){
+								$tmp[] = "{$item}{$part1}{$option}";
+								}
 							}
 						}
 					$res = $tmp;
-					}else{
-					$res[] = $line;
 					}
-				} 
-			}
+				$tmp = array();
+				if (count($res)==0){
+					$tmp[] = $line;
+					}else{
+					foreach($res as $item){
+						$tmp[] = "{$item}{$line}";
+						}
+					}
+				$res = $tmp;
+				}else{
+				$res[] = $line;
+				}
+			} 
 		return $res;
 		}
+	////////////////////////////////////////////////////
+
 	////////////////////////////////////////////////////
 	function noaccents($string) {
 		if ( !preg_match('/[\x80-\xff]/', $string) ) return $string;
@@ -739,11 +763,13 @@ class TMultiPractice extends THtml {
 			$courseid = $r['course'];
 			}
 		if ($correctcount==-1){
-			$data = $this->db->select('lesson_items', 'course', "id = {$itemid}");
+			$data = $this->db->select('lesson_items', 'course, type', "id = {$itemid}");
+			$type = 0;
 			foreach($data as $r){
 				$courseid = $r['course'];
+				$type = $r['type'];
 				}
-			$this->db->insert('lesson_items_usage', array('item' => $itemid, 'user' => $this->userid, 'course' => $courseid, 'lastused' => date('Y-m-d H:i:s'), 'correct' => 1, 'wrong' => 0));
+			$this->db->insert('lesson_items_usage', array('item' => $itemid, 'user' => $this->userid, 'course' => $courseid, 'type' => $type, 'lastused' => date('Y-m-d H:i:s'), 'correct' => 1, 'wrong' => 0));
 			}else{
 			$this->db->update('lesson_items_usage', array('lastused' => date('Y-m-d H:i:s'), 'correct' => $correctcount+1), "item = {$itemid} AND user = {$this->userid}");
 			}
@@ -764,11 +790,13 @@ class TMultiPractice extends THtml {
 			mt_rand(1, date('j')),  /* day */
 			date('Y'))); /* year */
 		if ($wrongcount==-1){
-			$data = $this->db->select('lesson_items', 'course', "id = {$itemid}");
+			$data = $this->db->select('lesson_items', 'course, type', "id = {$itemid}");
+			$type = 0;
 			foreach($data as $r){
 				$courseid = $r['course'];
+				$type = $r['type'];
 				}
-			$this->db->insert('lesson_items_usage', array('item' => $itemid, 'user' => $this->userid, 'course' => $courseid, 'lastused' => $pastdate, 'correct' => 0, 'wrong' => 1));
+			$this->db->insert('lesson_items_usage', array('item' => $itemid, 'user' => $this->userid, 'course' => $courseid, 'type' => $type, 'lastused' => $pastdate, 'correct' => 0, 'wrong' => 1));
 			}else{
 			$this->db->update('lesson_items_usage', array('lastused' => $pastdate, 'wrong' => $wrongcount+1), "item = {$itemid} AND user = {$this->userid}");
 			}
@@ -783,7 +811,12 @@ class TMultiPractice extends THtml {
 				}
 			$this->db->update('lesson_items_usage', array('lastused' => date('Y-m-d H:i:s')), "id = {$id} AND course = {$courseid} AND user = {$this->userid} AND item = {$itemid}");
 			}else{
-			$this->db->insert('lesson_items_usage', array('item' => $itemid, 'user' => $this->userid, 'course' => $courseid, 'lastused' => date('Y-m-d H:i:s')));
+			$data = $this->db->select('lesson_items', 'id, type', "id = {$itemid}");
+			$type = 0;
+			foreach($data as $r){
+				$type = $r['type'];
+				}
+			$this->db->insert('lesson_items_usage', array('item' => $itemid, 'user' => $this->userid, 'course' => $courseid, 'type' => $type, 'lastused' => date('Y-m-d H:i:s')));
 			}
 		}
 	////////////////////////////////////////////////////
@@ -1029,6 +1062,12 @@ class TMultiPractice extends THtml {
 		return $faces[rand(0, count($faces)-1)];
 		}
 	////////////////////////////////////////////////////
+	function addtomenu($i) {
+		if (($i!=null)&&(trim($i)!='')) {
+			$this->extramenuitems[] = $i;
+			}
+		
+		}
 	////////////////////////////////////////////////////
 	////////////////////////////////////////////////////
 	}
