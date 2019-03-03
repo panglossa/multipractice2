@@ -104,7 +104,7 @@ The idea this library is that the classes should adapt to the user's preferences
 
 # What it is not
 
-This is not a framework. At least not as what is commonly understood by the word 'framework'. It can be used in a similar manner, after you get used to working with it. But I see it as it was designed to be: a set of usefull classes.
+This is not a framework. At least not as what is commonly understood by the word 'framework'. It can be used in a similar manner, after you get used to working with it. But I see it as it was designed to be: a set of useful classes.
 
 
 
