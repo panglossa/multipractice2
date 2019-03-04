@@ -78,7 +78,7 @@ if ($this->isadmin()) {
 			$img = "<div style=\"font-style:italic;float:right\">Current Image: <img height=\"100\" src='data:image/png;base64," . base64_encode($course['image']) . "' /></div>";
 			}
 		$tbl_courseedit->add('Course Image: ', o('editcourseimage', TFile()) . ' ' . $img);
-		$this->add(TForm($tbl_courseedit));		
+		$this->add(TForm($tbl_courseedit . TA("index.php?c=courses/edit/{$course['id']}", '[Back]')));		
 		}else{
 		//echo '3';
 		$this->go('courses/edit');
