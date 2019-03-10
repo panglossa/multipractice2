@@ -102,42 +102,50 @@ if ($this->isadmin()) {
 		$tbl_lessonitems->addheader('#', 'Type', 'Name', 'Audio &amp; Image', 'Content', 'Info', 'Extra1', 'Extra2', 'Created', '&nbsp;');
 		$i = 1;
 		foreach($items as $item){
-			$audio = '';
-			if (($item['audio']!='')&&($this->parm('showmedia')==1)) {
-			$audio = "<div id=\"playbtn_{$item['id']}\"><button id=\"play_btn_{$item['id']}\" onclick=\"playPause_{$item['id']}()\">▶️</button> <audio id=\"listenlagu_{$item['id']}\"><source src=\"data:audio/mp3;base64," . base64_encode( $item['audio'] )."\"></audio></div><script>   initAudioPlayer_{$item['id']}();
-
-    function initAudioPlayer_{$item['id']}(){
-      var audio_{$item['id']} = new Audio();
-      var aContainer_{$item['id']} = document.getElementById('listenlagu_{$item['id']}');
-      // assign the audio src
-      audio_{$item['id']}.src = aContainer_{$item['id']}.querySelectorAll('source')[0].getAttribute('src');
-      audio_{$item['id']}.load();
-      audio_{$item['id']}.loop = false;
-      //audio_{$item['id']}.play();
-
-      // Set object references
-      var playbtn_{$item['id']} = document.getElementById(\"play_btn_{$item['id']}\");
-
-        // Add Event Handling
-        playbtn_{$item['id']}.addEventListener(\"click\", playPause_{$item['id']}(audio_{$item['id']}, playbtn_{$item['id']}));
-      }
-
-      // Functions
-      function playPause_{$item['id']}(audio_{$item['id']}, playbtn_{$item['id']}){
-          return function () {
-             if(audio_{$item['id']}.paused){
-               audio_{$item['id']}.play();
-               
-             } else {
-               audio_{$item['id']}.pause();
-               
-             } 
-          }
-      }</script>";
-			}
-			$image = '';
-			if ((trim($item['image'])!='')&&($this->parm('showmedia')==1)) {
-				$image = "<img style=\"max-width:300px;\" src='data:image/png;base64," . base64_encode($item['image']) . "' />";
+			$audio = '[no&nbsp;audio]<br/>';
+			if ($item['audio']!='') {
+				if ($this->parm('showmedia')==1) {
+					$audio = "<div id=\"playbtn_{$item['id']}\"><button id=\"play_btn_{$item['id']}\" onclick=\"playPause_{$item['id']}()\">▶️</button> <audio id=\"listenlagu_{$item['id']}\"><source src=\"data:audio/mp3;base64," . base64_encode( $item['audio'] )."\"></audio></div><script>   initAudioPlayer_{$item['id']}();
+		
+		    function initAudioPlayer_{$item['id']}(){
+		      var audio_{$item['id']} = new Audio();
+		      var aContainer_{$item['id']} = document.getElementById('listenlagu_{$item['id']}');
+		      // assign the audio src
+		      audio_{$item['id']}.src = aContainer_{$item['id']}.querySelectorAll('source')[0].getAttribute('src');
+		      audio_{$item['id']}.load();
+		      audio_{$item['id']}.loop = false;
+		      //audio_{$item['id']}.play();
+		
+		      // Set object references
+		      var playbtn_{$item['id']} = document.getElementById(\"play_btn_{$item['id']}\");
+		
+		        // Add Event Handling
+		        playbtn_{$item['id']}.addEventListener(\"click\", playPause_{$item['id']}(audio_{$item['id']}, playbtn_{$item['id']}));
+		      }
+		
+		      // Functions
+		      function playPause_{$item['id']}(audio_{$item['id']}, playbtn_{$item['id']}){
+		          return function () {
+		             if(audio_{$item['id']}.paused){
+		               audio_{$item['id']}.play();
+		               
+		             } else {
+		               audio_{$item['id']}.pause();
+		               
+		             } 
+		          }
+		      }</script>";
+					}else{
+					$audio = '[audio:&nbsp;' . strlen($item['audio']) . '&nbsp;bytes]<br/>';
+					}
+				}
+			$image = '[no&nbsp;image]';
+			if (trim($item['image'])!=''){
+				if ($this->parm('showmedia')==1) {
+					$image = "<img style=\"max-width:300px;\" src='data:image/png;base64," . base64_encode($item['image']) . "' />";
+					}else{
+					$image = '[image:&nbsp;' . strlen($item['image']) . '&nbsp;bytes]';
+					}
 				}
 			
 			$tbl_lessonitems->add(

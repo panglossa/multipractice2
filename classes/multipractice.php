@@ -86,7 +86,7 @@ class TMultiPractice extends THtml {
 		if (file_exists($flnm)) {
 			require_once($flnm);
 			}else{
-			$this->adderror("O módulo requisitado (<tt>{$this->module}</tt>) não existe.");
+			$this->adderror("The requested module (<tt>{$this->module}</tt>) does not exist.");
 			}
 		}
 	////////////////////////////////////////////////////
@@ -397,10 +397,10 @@ class TMultiPractice extends THtml {
 	function loadlanguages(){
 		$this->languages = array();
 		$this->languages[-1] = array('id' => '-1', 'name' => '-', 'englishname' => '', 'code' => '');
-		$langs = $this->db->select('languages', '*', "1", 0, 'name_sort');
+		$langs = $this->db->select('languages', '*', "1", 0, 'englishname, name_sort');
 		foreach($langs as $language){
 			if (($language['englishname']!='')&&($language['name']!=$language['englishname'])) {
-				$language['name'] = "{$language['name']} ({$language['englishname']})";
+				$language['name'] = "{$language['englishname']} ({$language['name']})";
 				}
 			$this->languages[$language['id']] = $language;
 			}
@@ -416,7 +416,7 @@ class TMultiPractice extends THtml {
 		$this->userlanguages[-1] = array('id' => -1, 'language_id' => -1, 'name' => 'All Languages', 'englishname' => '');
 		foreach($mylangs as $language){
 			if (($language['englishname']!='')&&($language['name']!=$language['englishname'])) {
-				$language['name'] = "{$language['name']} ({$language['englishname']})";
+				$language['name'] = "{$language['englishname']} ({$language['name']})";
 				}
 			$this->userlanguages[$language['id']] = $language;
 			}		

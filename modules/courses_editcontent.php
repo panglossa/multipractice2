@@ -83,6 +83,7 @@ if ($this->isadmin()) {
 			}
 		$tbl_coursecontent = o('tbl_coursecontent', TTable());
 		$tbl_coursecontent->addheader('Level ' . o('btn_addlevel', TA("index.php?c=courses/addlevel/{$course['id']}", '[+]&nbsp;Add&nbsp;Level')), 'Lessons');
+		$i = 1;
 		foreach($levels as $level){
 			$lstlessons = TOL();
 			foreach($lessons as $lesson){
@@ -93,7 +94,8 @@ if ($this->isadmin()) {
 					}
 				}
 			$lstlessons->add('&nbsp;'. TA("index.php?c=courses/addlesson/{$course['id']}/{$level['id']}", TI('[+]&nbsp;Add&nbsp;Lesson')));
-			$tbl_coursecontent->add(TB($level['name']) . '&nbsp;' . TA("index.php?c=courses/renamelevel/{$course['id']}/{$level['id']}", TI('[Rename]')) . BR . TA("index.php?c=courses/editcontent/{$course['id']}&reorderlevel=up&level={$level['id']}", '↑') . '&nbsp;' . TA("index.php?c=courses/editcontent/{$course['id']}&reorderlevel=down&level={$level['id']}", '↓'), $lstlessons);
+			$tbl_coursecontent->add($i . '. ' . TB($level['name']) . '&nbsp;' . TA("index.php?c=courses/renamelevel/{$course['id']}/{$level['id']}", TI('[Rename]')) . BR . TA("index.php?c=courses/editcontent/{$course['id']}&reorderlevel=up&level={$level['id']}", '↑') . '&nbsp;' . TA("index.php?c=courses/editcontent/{$course['id']}&reorderlevel=down&level={$level['id']}", '↓'), $lstlessons);
+			$i++;
 			}
 		$this->add($tbl_coursecontent);
 		}else{

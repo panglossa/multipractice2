@@ -23,6 +23,11 @@ body {
 	font-family: 'Imprima', sans-serif;
 	font-size:12pt;
 	text-align: justify;
+	unicode-bidi: plaintext;
+	}
+
+p, td, th, div, span {
+	unicode-bidi: plaintext;
 	}
 
 h1, h2, h3, h4, h5, h6 {
@@ -131,6 +136,7 @@ tr {
 	box-shadow: 2px 2px 10px black;
 	padding:1em;
 	border-radius:1ex;
+	unicode-bidi: plaintext;
 	}
 	
 .error{
@@ -487,6 +493,10 @@ td {
 	unicode-bidi: plaintext;
 	}
 	
+#lessonitemmain ul li {
+	text-align: left;
+	}
+	
 #msg_correctanswer {
 	background-color:green;
 	color:blue;
@@ -678,7 +688,9 @@ td {
 	text-align: center;
 	}
 
-
+#practicearea {
+	unicode-bidi: plaintext;
+	}
 #btn_edititemcancel,
 #btn_edititemcancel2 {
 	display:block;

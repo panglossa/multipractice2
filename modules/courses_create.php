@@ -46,15 +46,19 @@ if ($this->isadmin()) {
 				}
 			}
 		if ($isok) {
-			$this->db->insert('courses', array(
+			$coursedata = array(
 				'name' => $this->parameters['newcoursename'],
 				'language' => $this->parameters['newcourselanguage'],
-				'name' => $this->parameters['newcourseinfo'],
+				'info' => $this->parameters['newcourseinfo'],
 				'author' => $this->userid,
 				'created' => date('Y-m-d H:i:s'), 
 				'uid' => generateuid(),
 				'image' => $image
-				));
+				);
+			//print_r($this->parameters);
+			//echo 'aaaaaaaaaaaa';
+			//print_r($coursedata);
+			$this->db->insert('courses', $coursedata);
 			$this->go('courses/edit');
 			}
 		}
