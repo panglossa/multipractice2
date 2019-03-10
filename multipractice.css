@@ -30,6 +30,10 @@ p, td, th, div, span {
 	unicode-bidi: plaintext;
 	}
 
+td {
+	vertical-align:top;
+	}
+
 h1, h2, h3, h4, h5, h6 {
 	background-color: rgb(20, 82, 111);
 	text-shadow: 2px 2px 10px black;
@@ -664,6 +668,7 @@ td {
 
 #btn_addlevel ,
 #btn_createcourse,
+#btn_createcategory,
 #btn_edituser,
 #btn_addlessonitem,
 #btn_addlessonitem2 {
