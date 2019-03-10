@@ -23,7 +23,7 @@ window.setInterval( function() {
         }
     });
 }, refreshTime );
-
+////////////////////////////////////////////////////////////////////////
 function setnewquestiontype(atype){
 	jQuery('#newquestionlabelopen').hide();
 	jQuery('#newquestionlabelyesno').hide();
@@ -46,8 +46,7 @@ function setnewquestiontype(atype){
 		jQuery('#newquestionanswer2').show();
 		}
 	}
-	
-	
+////////////////////////////////////////////////////////////////////////
 function batch_add_question() {
 	jQuery('#txt_batch').val(jQuery('#txt_batch').val() + '\n\nquestion=\nanswer1=\nanswer2=\ninfo=\n');
 	var tx = document.getElementsByTagName('textarea');
@@ -61,7 +60,7 @@ function batch_add_question() {
 		}
 	jQuery('#txt_batch').focus();
 	}
-	
+////////////////////////////////////////////////////////////////////////
 function add_char(achar, targetid){
 	var cursorPosStart = $(targetid).prop('selectionStart');
 	var cursorPosEnd = $(targetid).prop('selectionEnd');
@@ -71,22 +70,21 @@ function add_char(achar, targetid){
 	$(targetid).val( textBefore+ achar +textAfter );
 	$(targetid).focus();
 	}
-        
-        
+////////////////////////////////////////////////////////////////////////
 function loadlevel(i){
 	window.location = 'index.php?c=courses/level/' + i;
 	}
-	
+////////////////////////////////////////////////////////////////////////
 function viewcourse(courseid){
 	window.location = 'index.php?c=courses/view/' + courseid;
 	}
-	
+////////////////////////////////////////////////////////////////////////
 function showcorrectanswer(){
 	jQuery('#correctanswer').show();
 	jQuery('#frm_translation').hide();
 	jQuery('#showcorrectanswer').hide();
 	}
-	
+////////////////////////////////////////////////////////////////////////
 // chronometer / stopwatch JS script - coursesweb.net
 
 // Here set the minutes, seconds, and tenths-of-second when you want the chronometer to stop
@@ -97,11 +95,10 @@ function createCookie(name,value,days) {
 		var date = new Date();
 		date.setTime(date.getTime()+(days*24*60*60*1000));
 		var expires = "; expires="+date.toGMTString();
-	}
-	else var expires = "";
+		} else var expires = "";
 	document.cookie = name+"="+value+expires+"; path=/";
-}
-
+	}
+////////////////////////////////////////////////////////////////////////
 function readCookie(name) {
 	var nameEQ = name + "=";
 	var ca = document.cookie.split(';');
@@ -109,15 +106,14 @@ function readCookie(name) {
 		var c = ca[i];
 		while (c.charAt(0)==' ') c = c.substring(1,c.length);
 		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-	}
+		}
 	return null;
-}
-
+	}
+////////////////////////////////////////////////////////////////////////
 function eraseCookie(name) {
 	createCookie(name,"",-1);
-}
-
-
+	}
+////////////////////////////////////////////////////////////////////////
 var stmints = 0;
 var stseconds = 0;
 var stzecsec = 0;
@@ -125,8 +121,8 @@ var stzecsec = 0;
 // function to be executed when the chronometer stops
 function toAutoStop() {
   //alert('Your life goes on');
-}
-
+	}
+////////////////////////////////////////////////////////////////////////
 var dateFormat = function () {
 	var	token = /d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZ]|"[^"]*"|'[^']*'/g,
 		timezone = /\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g,
@@ -205,7 +201,7 @@ var dateFormat = function () {
 		});
 	};
 }();
-
+////////////////////////////////////////////////////////////////////////
 // Some common format strings
 dateFormat.masks = {
 	"default":      "ddd mmm dd yyyy HH:MM:ss",
@@ -221,7 +217,7 @@ dateFormat.masks = {
 	isoDateTime:    "yyyy-mm-dd'T'HH:MM:ss",
 	isoUtcDateTime: "UTC:yyyy-mm-dd'T'HH:MM:ss'Z'"
 };
-
+////////////////////////////////////////////////////////////////////////
 // Internationalization strings
 dateFormat.i18n = {
 	dayNames: [
@@ -233,11 +229,11 @@ dateFormat.i18n = {
 		"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
 	]
 };
-
+////////////////////////////////////////////////////////////////////////
 // For convenience...
 Date.prototype.format = function (mask, utc) {
 	return dateFormat(this, mask, utc);
-};
+	};
 // the initial tenths-of-second, seconds, and minutes
 var zecsec = 0;
 var seconds = 0;
@@ -279,7 +275,7 @@ function chronometer() {
     else setTimeout("chronometer()", 100);
   }
 }
-
+////////////////////////////////////////////////////////////////////////
 function restorechron() {
 	if (readCookie('chronometer_running')=='1') {
 		//alert('Chronometer is running!');
@@ -305,6 +301,7 @@ function restorechron() {
 		chronometer(); 
 		}
 	}
+////////////////////////////////////////////////////////////////////////
 function startChr() {
 	zecsec = 0;
 	seconds = 0;
@@ -326,7 +323,7 @@ function startChr() {
 	startchron = 1; 
 	chronometer(); 
 	}      // starts the chronometer
-	
+////////////////////////////////////////////////////////////////////////
 function stopChr() {
 	eraseCookie('chronometer_running');
 	eraseCookie('chronometer_started_datetime');
@@ -342,6 +339,7 @@ function stopChr() {
 	 
 	startchron = 0; 
 	}                      // stops the chronometer
+////////////////////////////////////////////////////////////////////////
 function resetChr() {
   zecsec = 0;  seconds = 0; mints = 0; startchron = 0; 
     if (seconds<10) {
@@ -364,5 +362,5 @@ function resetChr() {
 	eraseCookie('chronometer_started_minute');
 	eraseCookie('chronometer_started_second');
 }
-
+////////////////////////////////////////////////////////////////////////
 // start the chronometer, delete this line if you want to not automatically start the stopwatch
