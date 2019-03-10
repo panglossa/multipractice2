@@ -145,7 +145,16 @@ if ($this->userid==-1) {
 				}
 			$practicearea->add(o('itemcontent', TDiv((new Parsedown())->text($item['content']))));
 			if (trim($item['info'])!='') {
-				$practicearea->add(o('iteminfo', TDiv($item['info'])));
+				$practicearea->add(o('iteminfo', TDiv((new Parsedown())->text($item['info']))));
+				}
+			if ($item['type']==CONTENT_TYPE_MEDIA) {
+				//extra fields contain answers in question-type items, but additional information in non-question type items
+				if (trim($item['extra1'])!='') {
+					$practicearea->add(o('itemextra1', TDiv((new Parsedown())->text($item['extra1']))));
+					}
+				if (trim($item['extra2'])!='') {
+					$practicearea->add(o('itemextra2', TDiv((new Parsedown())->text($item['extra2']))));
+					}
 				}
 			if (isset($this->parameters['suggestcorrection'])) {
 				
