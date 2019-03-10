@@ -47,7 +47,6 @@ function expand_options($s){
 		}
 	return $res;
 	}
-
 print_r(expand_options("[He|She] [does|is] not [work|working] [at|] home."));
-
+print_r(expand_options("[He|She|It] [becomes|is born]."));
 ?>
