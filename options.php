@@ -19,11 +19,4 @@ foreach($options as $key => $val){
 		define($key, $val);
 		}
 	}
-define('CONTENT_TYPE_MEDIA', 0);
-define('CONTENT_TYPE_EXERCISE_TRANSLATION', 1);
-define('CONTENT_TYPE_EXERCISE_QUESTION', 2);
-define('CONTENT_TYPE_EXERCISE_COMPLETE', 3);
-define('ITEM_STATUS_NEW', -1);
-define('ITEM_STATUS_CURRENT', 0);
-define('ITEM_STATUS_USED', 1);
 ?>

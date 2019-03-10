@@ -1,5 +1,6 @@
 <?php
 ob_start("ob_gzhandler");
+require_once('consts.php');
 require_once('options.php');
 require_once(GJ_PATH_LOCAL . '/gojohnny.php');
 require_once('tools.php');
