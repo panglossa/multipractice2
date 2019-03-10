@@ -93,7 +93,7 @@ if ($this->isadmin()) {
 				} else {
 				$this->go('courses/edit');
 				}
-			} else{
+			} else {
 			$pnl_courses = o('pnl_courses', TDiv());
 			$pnl_categories = o('pnl_categories', TDiv());
 			$lst_courses = TList();

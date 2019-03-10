@@ -128,7 +128,6 @@ tr {
 	box-shadow: 6px 6px 10px black;
 	border-radius: 5px;
 	}
-
 	
 #main{
 	position:absolute;
@@ -196,7 +195,8 @@ a, a:hover {
    border-top:4px solid #000;
    overflow:hidden;
    position:relative;
-}
+	}
+
 #footer ul {
    clear:left;
    float:left;
@@ -206,7 +206,8 @@ a, a:hover {
    position:relative;
    left:50%;
    text-align:center;
-}
+	}
+
 #footer ul li {
    display:block;
    float:left;
@@ -215,7 +216,8 @@ a, a:hover {
    padding:0;
    position:relative;
    right:50%;
-}
+	}
+
 #footer ul li a {
    display:block;
    margin:0 0 0 1px;
@@ -224,17 +226,19 @@ a, a:hover {
    color:#000;
    text-decoration:none;
    line-height:1.3em;
-}
+	}
+
 #footer ul li a:hover {
    background:#369;
    color:#fff;
-}
+	}
+
 #footer ul li a.active,
 #footer ul li a.active:hover {
    color:#fff;
    background:#000;
    font-weight:bold;
-}
+	}
 
 #footer hr {
 	display:none;
@@ -451,7 +455,6 @@ td {
 #lesson_main td {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
-	
 	}
 
 #categories {
@@ -462,14 +465,16 @@ td {
    margin:0;
    padding:0;
    margin-bottom:1em;
-}
+	}
+
 #categories li {
    float:left;
    list-style:none;
    margin:0;
    padding:0;
    position:relative;
-}
+	}
+
 #categories li a {
    margin:0 0 0 1px;
    padding:3px;
@@ -695,6 +700,7 @@ td {
 #practicearea {
 	unicode-bidi: plaintext;
 	}
+
 #btn_edititemcancel,
 #btn_edititemcancel2 {
 	display:block;
@@ -713,6 +719,7 @@ td {
 	text-align: center;
 	float:right;
 	}
+
 #tbl_courseedittoolbar a {
 	display:block;
 	border-radius:5px;
@@ -807,3 +814,8 @@ td {
 	background-color:#FFFFCC;
 	color:navy;
 	}
+
+#test {
+	font-size:100;
+	}
+
