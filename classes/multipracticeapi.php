@@ -36,7 +36,7 @@ class TMultiPracticeApi extends TMultiPractice {
 		foreach ($this->languages as $lang) {
 			$res[$lang['id']] = $lang;
 			}
-		return $res;
+		echo json_encode($res);
 		}
 	////////////////////////////////////////////////////
 	function api_userlanguages() {
@@ -45,7 +45,7 @@ class TMultiPracticeApi extends TMultiPractice {
 		foreach ($this->mylanguages as $lang) {
 			$res[$lang['id']] = $lang;
 			}
-		return $res;
+		echo json_encode($res);
 		}
 	////////////////////////////////////////////////////
 	function api_language() {
@@ -54,8 +54,7 @@ class TMultiPracticeApi extends TMultiPractice {
 		if (isset($this->languages[$this->parm('languageid', -1)])) {
 			$res = $this->languages[$this->parm('languageid', -1)];
 			}
-		return $res;
-		
+		echo json_encode($res);
 		}
 	////////////////////////////////////////////////////
 	function api_image() {
@@ -94,6 +93,24 @@ class TMultiPracticeApi extends TMultiPractice {
 			header("Last-Modified: Fri, 03 Mar 2004 06:32:31 GMT");
 			$image->output();
 			}
+		}
+	////////////////////////////////////////////////////
+	function api_allcourses() {
+		$res = array();
+		$courses = $this->db->select('courses', '*', '1', 0, 'name', 'asc');
+		foreach($courses as $course) {
+			$res[$course['id']] = $course;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_course() {
+		$res = array();
+		$courses = $this->db->select('courses', '*', "id = {$this->parameters['courseid']}");
+		foreach($courses as $course) {
+			$res = $course;
+			}
+		echo json_encode($res);
 		}
 	////////////////////////////////////////////////////
 	////////////////////////////////////////////////////
