@@ -113,7 +113,108 @@ class TMultiPracticeApi extends TMultiPractice {
 		echo json_encode($res);
 		}
 	////////////////////////////////////////////////////
+	function api_levels() {
+		$res = array();
+		$levels = $this->db->select('course_levels', '*', "course = {$this->parameters['courseid']}");
+		foreach($levels as $level) {
+			$res[$level['id']] = $level;
+			}
+		echo json_encode($res);
+		}
 	////////////////////////////////////////////////////
+	function api_level() {
+		$res = array();
+		$levels = $this->db->select('course_levels', '*', "id = {$this->parameters['levelid']}");
+		foreach($levels as $level) {
+			$res = $level;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_lessons() {
+		$res = array();
+		$lessons = $this->db->select('lessons', '*', "level = {$this->parameters['levelid']}");
+		foreach($lessons as $lesson) {
+			$res[$lesson['id']] = $lesson;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_lesson() {
+		$res = array();
+		$lessons = $this->db->select('lessons', '*', "id = {$this->parameters['lessonid']}");
+		foreach($lessons as $lesson) {
+			$res = $lesson;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_lessonitems() {
+		$res = array();
+		$items = $this->db->select('lesson_items', '*', "lesson = {$this->parameters['lessonid']}");
+		foreach($items as $item) {
+			$res[$item['id']]] = $item;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_lessonitem() {
+		$res = array();
+		$items = $this->db->select('lesson_items', '*', "id = {$this->parameters['itemid']}");
+		foreach($items as $item) {
+			$res = $item;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_allcategories() {
+		$res = array();
+		$cats = $this->db->select('categories');
+		foreach($cats as $cat) {
+			$cat['clients'] = array();
+			$catusage = $this->db->select('course_category', '*', "category_id = {$cat['id']}");
+			foreach($catusage as $ui) {
+				$cat['clients'][] = $ui['course_id'];
+				}
+			$res[$cat['id']] = $cat;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_category() {
+		$res = array();
+		$cats = $this->db->select('categories', '*', "id = {$this->parameters['categoryid']}");
+		foreach($cats as $cat) {
+			$cat['clients'] = array();
+			$catusage = $this->db->select('course_category', '*', "category_id = {$cat['id']}");
+			foreach($catusage as $ui) {
+				$cat['clients'][] = $ui['course_id'];
+				}
+			$res = $cat;
+			}
+		echo json_encode($res);
+		}
+	////////////////////////////////////////////////////
+	function api_usage() {
+		
+		}
+	////////////////////////////////////////////////////
+	function api_updateusage() {
+		
+		}
+	////////////////////////////////////////////////////
+	function api_startcourse() {
+		
+		}
+	////////////////////////////////////////////////////
+	function api_leavecourse() {
+		
+		}
+	////////////////////////////////////////////////////
+	function login() {
+		//if we got to this point, it means the provided username & password are valid
+		echo '1'; //  ¯\_(ツ)_/¯
+		}
 	////////////////////////////////////////////////////
 	////////////////////////////////////////////////////
 	////////////////////////////////////////////////////
