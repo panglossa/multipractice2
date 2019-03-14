@@ -253,6 +253,37 @@ class TMultiPractice extends THtml {
 				$data['lessonitem'] = $lessonitem;
 				}
 			$this->db->update('user_courses', $data, "course = {$courseid} AND user = {$this->userid}");
+			
+			$completeddata = $this->db->select('course_levels_completed', 'id', "user_id = {$this->userid} AND level_id = {$level}");
+			
+			if (count($completeddata)==0) {
+				//the level does not appear as completed, let's check if it is being completed now
+				$levelitems     = $this->db->select('lesson_items', 'id', "level = {$level}");
+				$usedlevelitems = $this->db->select('lesson_items_usage', 'item', "course = {$courseid} AND user = {$this->userid}");
+				$iscomplete = true;
+				foreach($levelitems as $li) {
+					$isused = false;
+					foreach($usedlevelitems as $ui) {
+						if ($ui['item']==$li['id']) {
+							$isused = true;
+							}
+						}
+					if (!$isused) {
+						$iscomplete = false;
+						}
+					}
+				if ($iscomplete) {
+					$this->db->insert(
+						'course_levels_completed', 
+						array(
+							'level_id' => $level, 
+							'course_id' => $courseid, 
+							'user_id' => $this->userid, 
+							'completed' => date('Y-m-d H:i:s')
+							)
+						);
+					}
+				}
 			}
 		}
 	////////////////////////////////////////////////////

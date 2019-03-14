@@ -122,7 +122,7 @@ if ($this->isadmin()) {
 						$c++;
 						}
 					}
-				$lst_categories->add($cat['name'] . TI(" ({$c} courses)"));
+				$lst_categories->add($cat['name'] . '&nbsp;' . TI(" ({$c} courses)"));
 				}
 			$pnl_categories->add($lst_categories);
 			$this->add(TTable($pnl_courses, $pnl_categories));

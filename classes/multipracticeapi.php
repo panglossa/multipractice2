@@ -153,7 +153,7 @@ class TMultiPracticeApi extends TMultiPractice {
 		$res = array();
 		$items = $this->db->select('lesson_items', '*', "lesson = {$this->parameters['lessonid']}");
 		foreach($items as $item) {
-			$res[$item['id']]] = $item;
+			$res[$item['id']] = $item;
 			}
 		echo json_encode($res);
 		}
