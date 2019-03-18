@@ -106,7 +106,10 @@ if ($this->isadmin()) {
 					$lst_courses->add(TA("index.php?c=courses/edit/{$c['id']}", "{$img}{$c['name']}"));
 					}
 				}
-			$pnl_courses->add(o('btn_createcourse', TA("index.php?c=courses/create", '[Create a New Course]')));
+			$pnl_courses->add(o('btn_createcourse', TA("index.php?c=courses/create", '[Create a New Course]')) . 
+			o('btn_exportcourse', TA("index.php?c=courses/export", '[Export a Course]')) .
+			o('btn_importcourse', TA("index.php?c=courses/import", '[Import a Course]')) . BR
+			);
 			$pnl_courses->add(TH5('Courses created by you:'));
 			$pnl_courses->add($lst_courses);
 			$pnl_categories->add(o('btn_createcategory', TA("index.php?c=courses/edit&newcat=1", '[Create a New Category]')));

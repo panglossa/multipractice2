@@ -13,6 +13,7 @@ $options = array(
 	, 'CLASS_PATH' => 'classes' . DIRECTORY_SEPARATOR
 	, 'MEDIA_PATH' => 'media' . DIRECTORY_SEPARATOR
 	, 'MODULES_PATH' => 'modules' . DIRECTORY_SEPARATOR
+	, 'PARSEDOWN' => 'parsedown' . DIRECTORY_SEPARATOR . 'Parsedown.php'
 	);
 foreach($options as $key => $val){
 	if(!defined($key)){

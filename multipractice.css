@@ -670,8 +670,11 @@ td {
 	font-weight: bold;
 	}
 
+#btn_downloadexported, 
 #btn_addlevel ,
 #btn_createcourse,
+#btn_importcourse,
+#btn_exportcourse,
 #btn_createcategory,
 #btn_edituser,
 #btn_addlessonitem,
@@ -736,7 +739,9 @@ td {
 	}
 
 #editcoursename,
-#editcourseinfo {
+#editcourseinfo,
+#newcourseinfo,
+#newcoursename {
 	width:90%;
 	}
 

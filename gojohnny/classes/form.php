@@ -58,12 +58,11 @@ class TForm extends TElement {
 		$this->button = $this->submitlink($caption, $fields);
 		}
 	/*******************************/
-	function show(){
+	function getcontent(){
 		if ($this->button == ''){
 			$this->button = TSubmit($this->buttonlabel);
 			}
-		$this->add($this->button);
-		return parent::show();
+		return parent::getcontent() . $this->button;
 		}
 	/*******************************/
 	function addhidden($key, $val){
