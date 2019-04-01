@@ -275,14 +275,18 @@ class TElement {
 		$this->unsetproperty('class');
 		}
 	/*******************************/
-	function addtext($s) {
+	function text($s) {
 		if ((defined('PARSEDOWN'))&&(file_exists(PARSEDOWN))) {
 			require_once(PARSEDOWN);
 			$s = (new Parsedown())->text($s);
 			}else{
 			$s = "<p>{$s}</p>";
 			}
-		$this->add($s);
+		return $s;
+		}
+	/*******************************/
+	function addtext($s) {
+		$this->add($this->text($s));
 		}
 	/*******************************/
 	}
