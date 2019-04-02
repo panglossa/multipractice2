@@ -24,17 +24,16 @@ $this->data = array(
 	*/
 	'db_mode' => 'sqlite',
 	'db_configdb' => 'config.sqlite',
-	'db_database' => 'data' . DIRECTORY_SEPARATOR . 'main_db.sqlite'
+	'db_database' => 'gojohnny.sqlite'
 	);
 ///////////////////////////////////////////////////////////////
 /*
 	Settings common to all environments
 	*/
-$this->data['icon'] = 'template.ico';
-$this->data['css'] = array(
-	'https://fonts.googleapis.com/css?family=Imprima&amp;subset=latin-ext' 
-	, 'template.css'
-	);
+$this->data['icon'] = 'media/gj_32.ico';
+$this->data['css'] = [
+	'template.css'
+	];
 	
 $this->data['js'] = array(
 	GJ_PATH_WEB . '/lib/jquery/jquery.js'
